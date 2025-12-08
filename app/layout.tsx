@@ -9,7 +9,7 @@ const _geistMono = Geist_Mono({ subsets: ["latin"] });
 export const metadata: Metadata = {
   title: 'Alerta Cidadão',
   icons: {
-    icon: '/icon.png',
+    icon: 'https://cdn-icons-png.flaticon.com/512/63/63820.png',
   },
 }
 
