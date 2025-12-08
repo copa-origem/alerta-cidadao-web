@@ -59,7 +59,7 @@ export function ReportForm() {
     const fetchProblematicas = async () => {
       try {
     
-        const res = await fetch(`http://localhost:5000/getproblematicas?nome=${setorSelecionado}`)
+        const res = await fetch(`https://api-consumo.vercel.app/getproblematicas?nome=${setorSelecionado}`)
         const data = await res.json()
 
         setProblematicas(data)
@@ -87,7 +87,7 @@ export function ReportForm() {
         });
       }
 
-      const res = await fetch("http://localhost:5000/create", {
+      const res = await fetch("https://api-consumo.vercel.app/create", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"

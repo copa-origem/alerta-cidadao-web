@@ -31,7 +31,7 @@ function MapWithProblemsContent() {
     useEffect(() => {
         const fetchProblems = async () => {
             try {
-                const res = await fetch("http://localhost:5000/get");
+                const res = await fetch("https://api-consumo.vercel.app/get");
                 const data = await res.json();
                 setProblems(data);
                 if (lat && lng) {
@@ -51,7 +51,7 @@ function MapWithProblemsContent() {
         try {
             const token = await user.getIdToken();
 
-            const res = await fetch("http://localhost:5000/vote", {
+            const res = await fetch("https://api-consumo.vercel.app/vote", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",

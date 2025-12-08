@@ -26,7 +26,7 @@ export default function MyReportsPage() {
 
     const fetchProblems = async () => {
       try {
-          const res = await fetch(`http://localhost:5000/get?uid=${user.uid}`);
+          const res = await fetch(`https://api-consumo.vercel.app/get?uid=${user.uid}`);
           const data = await res.json();
           setReports(data);
       } catch (error) {
@@ -39,7 +39,7 @@ export default function MyReportsPage() {
 
   const handleDelete = async (id: number) => {
     try {
-      const res = await fetch("http://localhost:5000/deleteproblem", {
+      const res = await fetch("https://api-consumo.vercel.app/deleteproblem", {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json"
