@@ -59,7 +59,7 @@ export function ReportForm() {
     const fetchProblematicas = async () => {
       try {
     
-        const res = await fetch(`http://20.63.25.230:3000/categories/${setorSelecionado}`)
+        const res = await fetch(`/api/categories/${setorSelecionado}`)
         const data = await res.json()
 
         let problems = [];
