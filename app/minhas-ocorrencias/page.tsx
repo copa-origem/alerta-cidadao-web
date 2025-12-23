@@ -21,8 +21,6 @@ export default function MyReportsPage() {
     router.push(`/explorar?lat=${lat}&lng=${lng}`)
   }
 
-  console.log(user);
-
   useEffect(() => {
     if (!user) return
 
@@ -48,7 +46,6 @@ export default function MyReportsPage() {
 
   const handleDelete = async (id: number) => {
     try {
-      console.log(id);
       const res = await fetch(`/api/problems/${id}`, {
         method: "DELETE",
         headers: {
