@@ -19,6 +19,8 @@ export default function GerarRelatorioPage() {
   
   // Estados de Auth e Socket
   const { user } = useAuth();
+  const API_URL = process.env.NEXT_PUBLIC_API_URL;
+
   const [token, setToken] = useState<string | null>(null);
   
   // Estados da UI
@@ -70,7 +72,7 @@ export default function GerarRelatorioPage() {
       try {
         // Assume que sua API busca pelo nome, ex: /categories/Infraestrutura Urbana
         // EncodeURIComponent garante que espaços não quebrem a URL
-        const res = await fetch(`https://api.alertacidadaoapi.com/categories/${encodeURIComponent(selectedCategoryName)}`)
+        const res = await fetch(`${API_URL}/categories/${encodeURIComponent(selectedCategoryName)}`)
         
         if (!res.ok) throw new Error("Falha ao buscar categoria");
         
@@ -115,7 +117,7 @@ export default function GerarRelatorioPage() {
         Object.entries(filters).filter(([_, v]) => v !== "")
       );
 
-      const response = await fetch('https://api.alertacidadaoapi.com/reports/export', {
+      const response = await fetch(`${API_URL}/reports/export`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
