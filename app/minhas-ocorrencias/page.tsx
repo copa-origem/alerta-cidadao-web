@@ -26,7 +26,7 @@ export default function MyReportsPage() {
 
     const fetchProblems = async () => {
       try {
-          const res = await fetch(`/api/problems/my-problems`, {
+          const res = await fetch(`https://api.alertacidadaoapi.com/problems/my-problems`, {
             method: "GET",
             headers: {
               "Content-Type": "application/json",
@@ -46,7 +46,7 @@ export default function MyReportsPage() {
 
   const handleDelete = async (id: number) => {
     try {
-      const res = await fetch(`/api/problems/${id}`, {
+      const res = await fetch(`https://api.alertacidadaoapi.com/problems/${id}`, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
