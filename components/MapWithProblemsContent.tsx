@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from "react";
 import { GoogleMap, Marker, useJsApiLoader, InfoWindow } from '@react-google-maps/api';
 import { useAuth } from "../hooks/useAuth";
+import { useSocket } from '@/hooks/useSocket';
 import { useSearchParams } from "next/navigation";
 
 
@@ -14,7 +15,10 @@ function MapWithProblemsContent() {
     const [center, setCenter] = useState({ lat: -12.9714, lng: -38.5014});
     const [problems, setProblems] = useState([]);
     const [activeMarker, setActiveMarker] = useState(null);
+
     const { user } = useAuth();
+    const [token, setToken] = useState<string | null>(null);
+
     const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
     const params = useSearchParams();
@@ -28,6 +32,32 @@ function MapWithProblemsContent() {
     const { isLoaded } = useJsApiLoader({
         googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY
     });
+
+    useEffect(() => {
+        if (user) {
+        user.getIdToken().then((t) => setToken(t));
+        }
+    }, [user]);
+
+    const socket = useSocket(token);
+
+    useEffect(() => {
+        if (!socket) return;
+
+        socket.on('map-update', (data: any) => {
+            console.log('Update de mapa recebido', data);
+            setProblems((prevMarkers) => {
+                const exists = prevMarkers.find(m => m.id == data.id);
+                if (exists) return prevMarkers;
+
+                return [...prevMarkers, data];
+            });
+        });
+
+        return () => {
+            socket.off('map-update');
+        };
+    }, [socket]);
 
     useEffect(() => {
         const fetchProblems = async () => {
